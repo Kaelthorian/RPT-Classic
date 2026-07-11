@@ -1,6 +1,6 @@
 extends Node
 
-const MAIN_SCENE := "res://scenes/main/main.tscn"
+const INITIAL_SCENE := "res://world/maps/test_grass_map.tscn"
 
 
 func _ready() -> void:
@@ -20,9 +20,9 @@ func _initialize_application() -> void:
 
 	GameState.reset_session()
 	EventBus.application_ready.emit()
-	var scene_error: Error = await SceneRouter.change_scene(MAIN_SCENE)
+	var scene_error: Error = await SceneRouter.change_scene(INITIAL_SCENE)
 	if scene_error != OK:
-		_fail("Main scene failed to open (error %d)." % scene_error)
+		_fail("Initial scene failed to open (error %d)." % scene_error)
 
 
 func _validate_services() -> Error:

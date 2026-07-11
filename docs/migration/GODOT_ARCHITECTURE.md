@@ -32,12 +32,16 @@ because the existing Godot project root is the parent of the legacy directory.
 
 `project.godot` starts `scenes/boot/boot.tscn`. Boot verifies the configured
 Autoload nodes, asks `DataRegistry` to parse the foundation manifest, resets the
-small session state, emits application readiness, and routes to
-`scenes/main/main.tscn`. A failure remains visible in Boot and is also reported
-through Godot's error channel.
+small session state, emits application readiness, and routes to the current test
+slice at `world/maps/test_grass_map.tscn`. A failure remains visible in Boot and
+is also reported through Godot's error channel.
 
-Main is a temporary status screen. It proves scene routing, loaded data and save
-interface availability; it contains no migrated gameplay.
+The test slice builds a 50 by 50 `TileMapLayer` from one Godot-owned grass tile,
+places a composed `CharacterBody2D` at its center, constrains it with static
+world bounds, and follows it with a camera. WASD and arrow input provide basic
+normalized eight-direction movement. This is a navigation harness, not parity
+with BYOND movement gates, stat timing, water, flight, skills or interruption
+behavior. `scenes/main/main.tscn` remains a temporary foundation status screen.
 
 ## Autoload responsibilities
 

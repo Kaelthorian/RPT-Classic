@@ -18,6 +18,7 @@
 | R-014 | Known legacy defects | Existing audit records movement key-release, stat-cap, duplicate load, save-corruption, admin-condition and secret risks. | Preserve intended behavior, not accidental defects; each discrepancy needs an explicit decision and regression case. |
 | R-015 | Validation coverage | Existing BYOND audit reports structural success but a prior compile timeout; no runtime parity harness exists. | Keep Godot validation separate and add focused recorded parity tests per vertical slice. |
 | R-016 | Godot resource scan | The first Godot 4.7 editor scan traversed the untracked BYOND tree and crashed while importing legacy resources. | Keep `RT Classic Byond/.gdignore`; import only audited copies placed in Godot-owned directories. |
+| R-017 | Visual automation | Godot 4.7's headless dummy renderer crashed when Movie Maker attempted to capture the textured test map; normal headless startup still exits successfully. | Perform visual and interactive movement QA in the editor/game window; do not treat headless movie capture as gameplay failure. |
 
 ## Decisions still required
 

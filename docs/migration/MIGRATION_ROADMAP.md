@@ -9,12 +9,15 @@ comparison against the BYOND reference before the next dependent stage begins.
    narrow services, validation and project conventions.
 3. **Data contracts and test harness.** Specify Resource/DTO schemas and build
    synthetic parity fixtures before converting content.
-4. **Minimal map slice.** Select one synthetic or approved small map area and
-   establish coordinates, collision, layers and DMI conversion rules.
-5. **Minimal player entity.** Compose identity, transform and only the state
-   needed by the slice; do not port the full mob variable surface.
-6. **Movement and input.** Reproduce cardinal/diagonal intent, gates, facing and
-   timing on the minimal map with recorded parity scenarios.
+4. **Minimal map slice — test harness created.** The synthetic 50×50 grass map
+   establishes coordinates, camera and outer collision. DMI conversion and a
+   representative approved BYOND map slice remain pending.
+5. **Minimal player entity — test harness created.** A composed visual/collision
+   player exists for navigation testing; identity and gameplay state remain
+   pending and must not mirror the full mob variable surface.
+6. **Movement and input — prototype in progress.** Basic cardinal/diagonal intent
+   works with WASD/arrows. BYOND gates, facing parity and timing still require
+   recorded comparison scenarios.
 7. **Interaction.** Define targeting and world-object interactions without
    importing combat complexity.
 8. **Inventory/item slice.** One representative item and equip/load cycle using
