@@ -1,0 +1,21 @@
+# Keep default ripgrep/Codex searches focused on editable text.
+# Explicit paths (for example `rg term Icons`) can still be searched when needed.
+Data/
+Fonts/
+Icons/
+*.dmb
+*.rsc
+*.dyn.rsc
+*.dmi
+*.bdb
+*.dmm
+*.dmf
+*.log
+*.ogg
+*.wav
+*.mp3
+*.mid
+*.ttf
+*.png
+*.jpg
+*.zip
