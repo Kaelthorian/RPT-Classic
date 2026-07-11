@@ -30,6 +30,27 @@ function Find-DreamMakerCompiler {
 
     # BYOND's supported command-line compiler is normally dm.exe. Older or custom
     # installations may expose DreamMaker.exe instead.
+    $localCompiler = Join-Path $repoRoot '.local-tools\BYOND\bin\dm.exe'
+    if (Test-Path -LiteralPath $localCompiler -PathType Leaf) {
+        return [IO.Path]::GetFullPath($localCompiler)
+    }
+
+    $localLegacyCompiler = Join-Path $repoRoot '.local-tools\BYOND\bin\dreammaker.exe'
+    if (Test-Path -LiteralPath $localLegacyCompiler -PathType Leaf) {
+        return [IO.Path]::GetFullPath($localLegacyCompiler)
+    }
+
+    if ($env:BYOND_DM_PATH) {
+        try {
+            $environmentCompiler = [IO.Path]::GetFullPath($env:BYOND_DM_PATH)
+        } catch {
+            $environmentCompiler = $null
+        }
+        if ($environmentCompiler -and (Test-Path -LiteralPath $environmentCompiler -PathType Leaf)) {
+            return $environmentCompiler
+        }
+    }
+
     $command = Get-Command 'dm.exe' -CommandType Application -ErrorAction SilentlyContinue |
         Select-Object -First 1
     if ($command) { $candidates.Add($command.Source) }
@@ -89,11 +110,12 @@ try {
 }
 
 if (-not $compiler) {
-    Write-Error 'Dream Maker compiler unavailable. Checked PATH, the Windows BYOND uninstall registry entries, Program Files, LocalAppData, and the user BYOND directory. Pass -CompilerPath with the full path to dm.exe if it is installed elsewhere.' -ErrorAction Continue
+    Write-Error 'Dream Maker compiler unavailable. Checked the repository-local BYOND tools, BYOND_DM_PATH, PATH, the Windows BYOND uninstall registry entries, Program Files, LocalAppData, and the user BYOND directory. Pass -CompilerPath with the full path to dm.exe if it is installed elsewhere.' -ErrorAction Continue
     exit $compilerNotFoundExitCode
 }
 
-Write-Host "Dream Maker compiler found: $compiler"
+Write-Host 'Selected Dream Maker compiler:'
+Write-Host "  $compiler"
 
 # Dream Maker writes .dmb/.rsc outputs beside the DME. Compile a working-tree
 # mirror so validation cannot overwrite tracked outputs or touch runtime data.
@@ -112,7 +134,7 @@ try {
     # Data is deliberately excluded: saves and runtime databases are not required
     # by the compiler and must never be copied into build staging.
     & robocopy.exe $repoRoot $buildRoot /E /NFL /NDL /NJH /NJS /NP `
-        /XD '.git' '.codex' 'Data' `
+        /XD '.git' '.codex' '.local-tools' 'Data' `
         /XF '*.dmb' '*.rsc' '*.dyn.rsc' '*.int' '*.log'
     $copyExitCode = $LASTEXITCODE
     if ($copyExitCode -ge 8) {
@@ -122,6 +144,7 @@ try {
 
     $stagedProject = Join-Path $buildRoot $projectName
     Write-Host "Compiling staged project: $stagedProject"
+    Write-Host "Command: & `"$compiler`" -full_paths `"$stagedProject`""
     Write-Host 'Structural validation is not compilation; success is reported only if Dream Maker exits with code 0.'
 
     Push-Location $buildRoot

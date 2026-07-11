@@ -36,10 +36,27 @@ not compiled, and include order can affect definitions and overrides.
 3. Keep a new `.dm` file focused on one system and add it to the ordered include
    block in `Roleplay Tenkaichi.dme`. A file that exists but is not included does
    not compile.
-4. Run `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check.ps1`
-   after source or project-file changes.
-5. If Dream Maker is installed and available on `PATH`, also compile with
-   `DreamMaker "Roleplay Tenkaichi.dme"`. Treat new compiler warnings as defects.
+4. Run the official repository verification described below after source or
+   project-file changes. Treat new compiler warnings as defects.
+
+## Required verification
+
+- After modifying any `.dm`, `.dme`, `.dmf`, or gameplay-related code, run:
+  `powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\verify.ps1"`.
+- `scripts/verify.ps1` is the repository's official validation command. It passes
+  only when `scripts/check.ps1` succeeds, Dream Maker actually compiles
+  `Roleplay Tenkaichi.dme`, and Dream Maker exits with code `0`. A structural check
+  or visual review alone does not establish that the code compiles.
+- If compilation fails, read the complete compiler output, investigate the cause,
+  fix only task-related errors, and rerun `scripts/verify.ps1`. Never claim a change
+  works when compilation could not run.
+- Final reports must explicitly state one of: `Verification passed`,
+  `Structural check passed, compilation failed`, `Structural check failed`, or
+  `Compilation could not be executed`.
+- `.local-tools/BYOND/` contains external compilation tools. Agents may execute its
+  compiler, but must not modify, format, analyze as project code, move, delete, or
+  update its files; run installers; or include changes there in normal tasks.
+  Changes inside that directory are out of scope unless the user explicitly asks.
 
 ## Editing rules
 
@@ -72,9 +89,7 @@ not compiled, and include order can affect definitions and overrides.
 
 - The change is limited to the requested system.
 - Every DME include resolves and new source files are included exactly once.
-- `scripts/check.ps1` passes.
+- `scripts/verify.ps1` passes when source, project configuration, or includes changed.
 - `git diff --check`, `git status --short`, and the complete final diff were reviewed.
-- Dream Maker compilation was run when the executable was available; otherwise,
-  state clearly that compilation could not be performed.
 - No gameplay balance, compiled output, logs, saves, database, map, unrelated user
   file, or binary asset was changed.
