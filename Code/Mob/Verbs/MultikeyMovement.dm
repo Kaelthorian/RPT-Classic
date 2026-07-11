@@ -18,44 +18,66 @@ client
 		east = 0
 		south = 0
 		west = 0
+		tmp/applying_movement_keys = 0
 
+	proc/ApplyMovementKeys()
+		var/movement_direction = 0
+		if(north != south)
+			movement_direction += north ? NORTH : SOUTH
+		if(east != west)
+			movement_direction += east ? EAST : WEST
+
+		//Opposite keys cancel their axis. A key release must immediately apply
+		//the direction that remains instead of waiting for the next +REP event.
+		if(!movement_direction) return
+		applying_movement_keys = 1
+		switch(movement_direction)
+			if(NORTH) North()
+			if(SOUTH) South()
+			if(EAST) East()
+			if(WEST) West()
+			if(NORTHEAST) Northeast()
+			if(NORTHWEST) Northwest()
+			if(SOUTHEAST) Southeast()
+			if(SOUTHWEST) Southwest()
+		applying_movement_keys = 0
 
 
 	North()	//Player is trying to go northward.
+		if(applying_movement_keys) return ..()
 		north = 1					//North was activated. Keep track of this.
-		if(east) Northeast()		//If east is also activated, then move Northeast.
-		else if(west) Northwest()	//Else if west is also activated, then move Northwest.
-		else ..()
+		ApplyMovementKeys()
 	East()
+		if(applying_movement_keys) return ..()
 		east = 1
-		if(north) Northeast()
-		else if(south) Southeast()
-		else ..()
+		ApplyMovementKeys()
 	South()
+		if(applying_movement_keys) return ..()
 		south = 1
-		if(east) Southeast()
-		else if(west) Southwest()
-		else ..()
+		ApplyMovementKeys()
 	West()
+		if(applying_movement_keys) return ..()
 		west = 1
-		if(north) Northwest()
-		else if(south) Southwest()
-		else ..()
+		ApplyMovementKeys()
 
 	verb
 		NorthReleased()
 			set hidden = 1
 			set instant=1
 			north = 0
+			ApplyMovementKeys()
 		EastReleased()
 			set hidden = 1
 			set instant=1
 			east = 0
+			ApplyMovementKeys()
 		SouthReleased()
 			set hidden = 1
 			set instant=1
 			south = 0
+			ApplyMovementKeys()
 		WestReleased()
 			set hidden = 1
 			set instant=1
 			west = 0
+			ApplyMovementKeys()
