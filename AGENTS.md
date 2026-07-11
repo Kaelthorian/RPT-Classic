@@ -39,6 +39,20 @@ not compiled, and include order can affect definitions and overrides.
 4. Run the official repository verification described below after source or
    project-file changes. Treat new compiler warnings as defects.
 
+## Documentation routing
+
+- Start at `docs/README.md`; use `docs/REPOSITORY-MAP.md` to locate code.
+- For architecture, distributed types, or DME changes, read
+  `docs/ARCHITECTURE.md` and `docs/INCLUDE-AND-TYPE-SYSTEM.md`.
+- For build and validation work, read `docs/DEVELOPMENT.md`.
+- Before changing movement/input, combat/skills/items, persistence/world, or
+  UI/admin/communications, read the matching document under `docs/systems/`.
+- Consult `docs/CODE-REVIEW.md` before working in a documented risk area.
+- When a change alters documented architecture, behavior, paths, principal
+  types, commands, or validation procedures, update the relevant documentation
+  in the same task. Small internal changes that do not alter documented facts do
+  not require documentation edits.
+
 ## Required verification
 
 - After modifying any `.dm`, `.dme`, `.dmf`, or gameplay-related code, run:
