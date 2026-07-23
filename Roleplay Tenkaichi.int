@@ -1,0 +1,22 @@
+// BEGIN_INTERNALS
+/*
+MAP_PLANE_MASTERS: 
+MAP_ZOOM: 0.250
+LAST_COMPILE_TIME: 1758057083
+DIR: assets\css assets\html assets\js Code Code\Items\BuyItemSystem Code\Items\Money Code\Items\Other\Food Code\Items\Other\Gravity Code\Items\Tech\Structures Code\Modules Code\Modules\Admin Code\Modules\Admin\Verbs Code\Modules\World 
+PACKAGE_RSC_NAME: C:\Users\Micha\Desktop\RT Updated\Roleplay Tenkaichi\Roleplay Tenkaichi_rsc.zip
+AUTO_FILE_DIR: ON
+PACKAGE_DMB_INFO: 
+MAP_ICON_TYPE: 0
+PACKAGE_DME_NAME: C:\Users\Micha\Desktop\RT Updated\Roleplay Tenkaichi\Roleplay Tenkaichi_src.zip
+LAST_COMPILE_VERSION: 516.1659
+PACKAGE_TYPE: 0
+PACKAGE_DME_START: 
+WINDOW: Code\Modules\Admin\Verbs\AdminKnockout.dm;Code\Modules\World\WorldSettings.dm
+PACKAGE_DME_INFO: 
+FILE: Code\Modules\World\WorldSettings.dm
+MAP_INSTANCE_MODE: copy
+PACKAGE_DMB_NAME: C:\Users\Micha\Desktop\Roleplay Tenkaichi.zip
+PACKAGE_DME_DEMO: 
+*/
+// END_INTERNALS
