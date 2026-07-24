@@ -1,0 +1,18 @@
+# Local BYOND compiler/runtime output
+*.dmb
+*.rsc
+*.dyn.rsc
+*.int
+errors.log
+topiclog.log
+
+# Runtime player/server data generated locally
+Data/Saves/
+Data/Logs/
+
+# Local tools and editors
+.local-tools/
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

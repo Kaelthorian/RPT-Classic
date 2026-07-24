@@ -1,0 +1,24 @@
+# Keep default Codex/ripgrep searches focused on editable source.
+Data/
+Icons/
+Fonts/
+.local-tools/
+*.dmb
+*.rsc
+*.dyn.rsc
+*.int
+*.dmi
+*.dmm
+*.dmf
+*.bdb
+*.log
+*.ogg
+*.wav
+*.mp3
+*.mid
+*.ttf
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.zip
